@@ -2,7 +2,7 @@
 
 This repository represents a demo implementation of the [todvora/eet-client](https://github.com/todvora/eet-client).
  
-Please continue to Application.java to see all sources.
+Please continue to [Application.java](https://github.com/todvora/eet-client-demo/blob/master/src/main/java/cz/tomasdvorak/eet/demo/Application.java) to see all sources.
 
 ## What this demo does
 This demo will send two requests to the EET playground endpoint, both under `CommunicationMode.REAL` settings.
