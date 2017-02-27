@@ -10,7 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <eet-client-version.version>3.0.0-beta-5</eet-client-version.version>
+        <eet-client-version.version>3.0.0-beta-7</eet-client-version.version>
         <log4j.version>2.3</log4j.version>
     </properties>
 
