@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+
+    <properties>
+        <property name="pattern">%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</property>
+        <property name="csvPattern">%msg%n</property>
+    </properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern}" />
+        </Console>
+
+        <RollingFile name="AllLogFile" fileName="logs/all.log"
+                     filePattern="logs/$${date:yyyy-MM}/all-%d{yyyy-MM-dd}-%i.log.gz" append="true">
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy /><!-- Rotated everyday -->
+                <SizeBasedTriggeringPolicy size="100 MB"/> <!-- Or every 100 MB -->
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="WebserviceLogFile" fileName="logs/webservice.log"
+                     filePattern="logs/$${date:yyyy-MM}/webservice-%d{yyyy-MM-dd}-%i.log.gz" immediateFlush="false" append="true">
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy /><!-- Rotated everyday -->
+                <SizeBasedTriggeringPolicy size="100 MB"/> <!-- Or every 100 MB -->
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="TimingLogFile" fileName="logs/timing.csv"
+                     filePattern="logs/$${date:yyyy-MM}/timing-%d{yyyy-MM-dd}-%i.csv.gz" immediateFlush="false" append="true">
+            <PatternLayout>
+                <pattern>${csvPattern}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy /><!-- Rotated everyday -->
+                <SizeBasedTriggeringPolicy size="5 MB"/> <!-- Or every 100 MB -->
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+
+    </Appenders>
+    <Loggers>
+        <Logger name="cz.tomasdvorak.eet.client.logging" level="INFO" additivity="false">
+            <AppenderRef ref="WebserviceLogFile"/>
+        </Logger>
+        <Logger name="cz.tomasdvorak.eet.client.timing" level="INFO" additivity="false">
+            <AppenderRef ref="TimingLogFile"/>
+        </Logger>
+        <Root level="INFO">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="AllLogFile" />
+        </Root>
+    </Loggers>
+</Configuration>
